@@ -9,8 +9,8 @@ public class ShootingCube extends Object3D {
 	}
 
 	public void update(long elapsedTime){
-		rotateX(elapsedTime/1000);
-		rotateY(elapsedTime/1000);
-		rotateZ(elapsedTime/1000);
+		rotateX(elapsedTime/1000.0f);
+		rotateY(elapsedTime/1000.0f);
+		rotateZ(elapsedTime/1000.0f);
 	}
 }

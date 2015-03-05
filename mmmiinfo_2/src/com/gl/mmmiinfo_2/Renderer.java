@@ -105,6 +105,7 @@ class Renderer implements GLSurfaceView.Renderer {
 			touchTurnUp = 0;
 		}*/
 		long elapsedTime = System.currentTimeMillis() - time;
+		time = System.currentTimeMillis();
 		cube.update(elapsedTime);
 
 		fb.clear(background);
@@ -112,11 +113,5 @@ class Renderer implements GLSurfaceView.Renderer {
 		world.draw(fb);
 		fb.display();
 
-		if (elapsedTime >= 1000) {
-			Logger.log(fps + "fps");
-			fps = 0;
-			time = System.currentTimeMillis();
-		}
-		fps++;
 	}
 }
