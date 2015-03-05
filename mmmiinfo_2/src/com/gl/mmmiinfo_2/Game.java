@@ -21,7 +21,7 @@ import com.threed.jpct.util.BitmapHelper;
 import com.threed.jpct.util.MemoryHelper;
 
 
-class Renderer implements GLSurfaceView.Renderer {
+class Game implements GLSurfaceView.Renderer {
 
 	private static Activity master = null;
 	private RGBColor background = new RGBColor(50, 50, 100);
@@ -31,13 +31,12 @@ class Renderer implements GLSurfaceView.Renderer {
 	private long time = System.currentTimeMillis();
 
 	private ShootingCube cube = null;
-	private int fps = 0;
 	private boolean gl2 = true;
 	
-	private Camera cam = null;
+	public Camera cam = null;
 	private Light sun = null;
 
-	public Renderer() {
+	public Game() {
 		
 	}
 
@@ -60,12 +59,11 @@ class Renderer implements GLSurfaceView.Renderer {
 			sun = new Light(world);
 			sun.setIntensity(250, 250, 250);
 
-			// Create a texture out of the icon...:-)
-			//Texture texture = new Texture(BitmapHelper.rescale(BitmapHelper.convert(getResources().getDrawable(R.drawable.icon)), 64, 64));
 			Texture texture = new Texture(64, 64, new RGBColor(255,0,0));
 			TextureManager.getInstance().addTexture("texture", texture);
 
 			cube = new ShootingCube(Primitives.getCube(5));
+			
 			cube.calcTextureWrapSpherical();
 			cube.setTexture("texture");
 			cube.strip();
@@ -84,10 +82,6 @@ class Renderer implements GLSurfaceView.Renderer {
 			sun.setPosition(sv);
 			MemoryHelper.compact();
 
-			if (master == null) {
-				Logger.log("Saving master Activity!");
-				//master = HelloWorld.this;
-			}
 		}
 	}
 
@@ -95,18 +89,9 @@ class Renderer implements GLSurfaceView.Renderer {
 	}
 
 	public void onDrawFrame(GL10 gl) {
-		/*if (touchTurn != 0) {
-			cube.rotateY(touchTurn);
-			touchTurn = 0;
-		}
-
-		if (touchTurnUp != 0) {
-			cube.rotateX(touchTurnUp);
-			touchTurnUp = 0;
-		}*/
 		long elapsedTime = System.currentTimeMillis() - time;
 		time = System.currentTimeMillis();
-		cube.update(elapsedTime);
+		cube.update(elapsedTime/1000.0f);
 
 		fb.clear(background);
 		world.renderScene(fb);

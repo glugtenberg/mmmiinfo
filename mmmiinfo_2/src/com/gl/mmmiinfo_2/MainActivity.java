@@ -4,6 +4,8 @@ import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLDisplay;
 
+import com.threed.jpct.Camera;
+
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -14,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
 public class MainActivity extends Activity {
+	
+	private Game game = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +26,8 @@ public class MainActivity extends Activity {
 
 		mGLView.setEGLContextClientVersion(2);
 
-		Renderer renderer = new Renderer();
-		mGLView.setRenderer(renderer);
+		game = new Game();
+		mGLView.setRenderer(game);
 		
 		setContentView(mGLView);
 		
@@ -35,11 +39,11 @@ public class MainActivity extends Activity {
 	
 	public void onLeftBtn(View v)
     {
-        //cam.moveCamera(Camera.CAMERA_MOVELEFT, 10);
+        game.cam.moveCamera(Camera.CAMERA_MOVELEFT, 10);
     } 
 	
 	public void onRightBtn(View v)
     {
-        //cam.moveCamera(Camera.CAMERA_MOVERIGHT, 10);
+		game.cam.moveCamera(Camera.CAMERA_MOVERIGHT, 10);
     }
 }
