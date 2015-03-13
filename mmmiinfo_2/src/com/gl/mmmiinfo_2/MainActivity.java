@@ -39,11 +39,13 @@ public class MainActivity extends Activity {
 	
 	public void onLeftBtn(View v)
     {
-        game.cam.moveCamera(Camera.CAMERA_MOVELEFT, 10);
+        //game.cam.moveCamera(Camera.CAMERA_MOVELEFT, 10);
+		game.player.moveLeft();
     } 
 	
 	public void onRightBtn(View v)
     {
-		game.cam.moveCamera(Camera.CAMERA_MOVERIGHT, 10);
+		//game.cam.moveCamera(Camera.CAMERA_MOVERIGHT, 10);
+		game.player.moveRight();
     }
 }

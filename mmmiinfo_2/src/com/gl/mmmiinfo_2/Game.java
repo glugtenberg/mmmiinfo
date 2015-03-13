@@ -1,5 +1,7 @@
 package com.gl.mmmiinfo_2;
 
+import java.util.ArrayList;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
@@ -27,9 +29,12 @@ class Game implements GLSurfaceView.Renderer {
 	private RGBColor background = new RGBColor(50, 50, 100);
 	
 	private FrameBuffer fb = null;
-	private World world = null;
+	public World world = null;
 	private long time = System.currentTimeMillis();
 
+	public CubeSpawner spawner = null;
+	public Player player = null; 
+	
 	private ShootingCube cube = null;
 	private boolean gl2 = true;
 	
@@ -59,24 +64,24 @@ class Game implements GLSurfaceView.Renderer {
 			sun = new Light(world);
 			sun.setIntensity(250, 250, 250);
 
+			
 			Texture texture = new Texture(64, 64, new RGBColor(255,0,0));
 			TextureManager.getInstance().addTexture("texture", texture);
-
-			cube = new ShootingCube(Primitives.getCube(5));
 			
-			cube.calcTextureWrapSpherical();
-			cube.setTexture("texture");
-			cube.strip();
-			cube.build();
-
-			world.addObject(cube);
-
+			ArrayList<SimpleVector> spawnSlots = new ArrayList<SimpleVector>();
+			spawnSlots.add(new SimpleVector(-10 , 0, 100));
+			spawnSlots.add(new SimpleVector(0 , 0, 100));
+			spawnSlots.add(new SimpleVector(10 , 0, 100));
+			spawner = new CubeSpawner(spawnSlots, world); 
+			
+			player = new Player();
+			
 			cam = world.getCamera();
-			cam.moveCamera(Camera.CAMERA_MOVEOUT, 50);
-			cam.lookAt(cube.getTransformedCenter());
+			cam.setPosition(0, 0, 0);
+			cam.lookAt(new SimpleVector(0, 0, 1));
 
 			SimpleVector sv = new SimpleVector();
-			sv.set(cube.getTransformedCenter());
+			sv.set(new SimpleVector(0, 0, -1));
 			sv.y -= 100;
 			sv.z -= 100;
 			sun.setPosition(sv);
@@ -91,8 +96,10 @@ class Game implements GLSurfaceView.Renderer {
 	public void onDrawFrame(GL10 gl) {
 		long elapsedTime = System.currentTimeMillis() - time;
 		time = System.currentTimeMillis();
-		cube.update(elapsedTime/1000.0f);
-
+		
+		spawner.update(this , elapsedTime / 1000.0f);
+		player.update(this, elapsedTime / 1000.0f);
+				
 		fb.clear(background);
 		world.renderScene(fb);
 		world.draw(fb);
