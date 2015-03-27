@@ -19,19 +19,59 @@ public class CubeSpawner {
 	public ArrayList<ShootingCube> cubes;
 	public ArrayList<SimpleVector> spawnSlots; 
 	
-	public CubeSpawner(ArrayList<SimpleVector> spawnSlots, World world) {
+	private int tableDim;
+	public float[][] transitionTable; 
+	public int prevSlotIdx;
+	
+	public CubeSpawner(ArrayList<SimpleVector> slots, float depth, float[][] transitionTable, int tableDim, World world) {
 		Log.d("DEBUG", "CubeSpawner");
 		cubes = new ArrayList<ShootingCube>();
 		this.spawnSlots = new ArrayList<SimpleVector>();
-		this.spawnSlots.addAll(spawnSlots);
+		for (int i = 0; i < slots.size(); ++i) {
+			SimpleVector v = new SimpleVector(slots.get(i));
+			v.z += depth;
+			spawnSlots.add(v);
+		}
 		
-		buildPool(20, world);
+		this.tableDim = tableDim;
+		this.transitionTable = transitionTable; 
+		this.prevSlotIdx = tableDim / 2; 
+		
+		buildPool(40, world);
+	}
+	
+	public void reset() {
+		for (int i = 0; i < cubes.size(); ++i) {
+			cubes.get(i).setActive(false); 
+		}
+	}
+	
+	private int getFreeSlotIdx() {
+		float[] transitions = new float[tableDim];
+		for (int i = 0; i < tableDim; ++i) {
+			transitions[i] = transitionTable[prevSlotIdx][i]; 
+		}
+		
+		float W = (float)Math.random(); 
+		float w = 0;
+		int idx = 0; 
+		while (w < W && idx < tableDim) {
+			w += transitions[idx++];
+		}
+		
+		return idx - 1;
 	}
 	
 	public void update(Game game, float dt) {
-		if  (t <= 0) {
-			int slotIdx = (int)(spawnSlots.size() * Math.random());
-			spawnCube(spawnSlots.get(slotIdx));
+		if  (t <= 0) { 
+			int freeSlotIdx = getFreeSlotIdx();
+			for (int i = 0; i < spawnSlots.size(); ++i) {
+				if (i != freeSlotIdx &&  (i == prevSlotIdx || Math.random() < 0.75)) {
+					spawnCube(spawnSlots.get(i));
+				} 
+			}
+			
+			prevSlotIdx = freeSlotIdx;
 			t = interval; 
 		} else {
 			t -= dt; 
@@ -47,7 +87,7 @@ public class CubeSpawner {
 			ShootingCube cube = new ShootingCube(Primitives.getCube(5));
 			
 			cube.calcTextureWrapSpherical();
-			cube.setTexture("texture");
+			cube.setTexture("whiteTexture");
 			cube.strip();
 			cube.build();
 			
