@@ -9,7 +9,7 @@ import com.threed.jpct.SimpleVector;
 public class Player {
 	
 	private ArrayList<SimpleVector> slots;
-	private int slotIdx;
+	public int slotIdx;
 	
 	private SimpleVector targetPos = new SimpleVector();
 	private SimpleVector currentPos = new SimpleVector(); 
