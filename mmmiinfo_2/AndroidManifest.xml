@@ -33,6 +33,18 @@
             android:screenOrientation="reverseLandscape"
         	android:configChanges="keyboardHidden|orientation">
         </activity>
+        <activity android:name=".ButtonActivity" android:label="Buttons"
+            android:screenOrientation="reverseLandscape"
+        	android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".TiltActivity" android:label="Tilt"
+            android:screenOrientation="reverseLandscape"
+        	android:configChanges="keyboardHidden|orientation">
+        </activity>
+        <activity android:name=".CameraActivity" android:label="Camera"
+            android:screenOrientation="reverseLandscape"
+        	android:configChanges="keyboardHidden|orientation">
+        </activity>
     </application>
 
 </manifest>

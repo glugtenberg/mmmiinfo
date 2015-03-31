@@ -17,4 +17,28 @@
             android:onClick="onStartButton"
             android:text="Start Game" />
 
+        <Button
+            android:id="@+id/tilt_button"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_above="@+id/start_button"
+            android:layout_alignLeft="@+id/start_button"
+            android:layout_marginBottom="44dp"
+            android:alpha="0.4"
+            android:background="@drawable/roundedbutton"
+            android:onClick="onTiltButton"
+            android:text="Tilt" />
+
+        <Button
+            android:id="@+id/cam_button"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_above="@+id/tilt_button"
+            android:layout_alignLeft="@+id/tilt_button"
+            android:layout_marginBottom="48dp"
+            android:alpha="0.4"
+            android:background="@drawable/roundedbutton"
+            android:onClick="onCamButton"
+            android:text="Tilt" />
+
 </RelativeLayout>

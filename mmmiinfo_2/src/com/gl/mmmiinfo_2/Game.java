@@ -26,7 +26,7 @@ import com.threed.jpct.util.MemoryHelper;
 class Game implements GLSurfaceView.Renderer {
 
 	private static Activity master = null;
-	private RGBColor background = new RGBColor(40, 40, 430);
+	private RGBColor background = new RGBColor(40, 40, 40);
 	
 	private FrameBuffer fb = null;
 	public World world = null;

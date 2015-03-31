@@ -13,12 +13,20 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		//getFragmentManager().beginTransaction()
-		//	.replace(R.id.container, FrontCam.newInstance()).commit();
 	}
 	
 	public void onStartButton(View v) {
-		Intent intent = new Intent(v.getContext(), GameActivity.class);
+		Intent intent = new Intent(v.getContext(), ButtonActivity.class);
 		v.getContext().startActivity(intent);
+    }
+	
+	public void onTiltButton(View v) {
+		Intent intent = new Intent(v.getContext(), TiltActivity.class);
+		startActivity(intent);
+    }
+	
+	public void onCamButton(View v) {
+		Intent intent = new Intent(v.getContext(), CameraActivity.class);
+		startActivity(intent);
     }
 }
