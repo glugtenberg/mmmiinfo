@@ -26,7 +26,7 @@ import com.threed.jpct.util.MemoryHelper;
 class Game implements GLSurfaceView.Renderer {
 
 	private static Activity master = null;
-	private RGBColor background = new RGBColor(40, 40, 40);
+	private RGBColor background = new RGBColor(40, 40, 430);
 	
 	private FrameBuffer fb = null;
 	public World world = null;
@@ -60,6 +60,12 @@ class Game implements GLSurfaceView.Renderer {
 		}
 	}
 
+	public void clear() {
+		world.removeAll(); 
+   	 	//fb.dispose();
+   	 	TextureManager.getInstance().flush();
+	}
+	
 	public void init() {
 		world = new World();
 		world.setAmbientLight(50, 50, 50);

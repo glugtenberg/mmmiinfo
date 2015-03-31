@@ -55,6 +55,18 @@ public class Player {
 			   center.x > currentPos.x - 2.5f && center.x < currentPos.x + 2.5;
 	}
 	
+	public void moveToLeftSide() {
+		slotIdx = 0;
+	}
+	
+	public void moveToCenter() {
+		slotIdx = 1;
+	}
+	
+	public void moveToRightSide() {
+		slotIdx = 2; 
+	}
+	
 	public void moveLeft() {
 		slotIdx = slotIdx > 0 ? slotIdx - 1 : slotIdx; 
 	}

@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.ViewGroup.LayoutParams;
 
 public class GameActivity extends Activity implements SensorEventListener, CvCameraViewListener2{
@@ -34,8 +35,8 @@ public class GameActivity extends Activity implements SensorEventListener, CvCam
 	private SensorManager sensorManager;
     
     private boolean tiltFlag = true; 
-    private static final float flagThreshold = 0.1f;
-    private static final float tiltThreshold = 0.15f; 
+    private static final float flagThreshold = 0.05f;
+    private static final float tiltThreshold = 0.1f; 
     
     private CameraBridgeViewBase mOpenCvCameraView;
 	
@@ -69,10 +70,14 @@ public class GameActivity extends Activity implements SensorEventListener, CvCam
 		sensorManager.registerListener(this,  sensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR), SensorManager.SENSOR_DELAY_NORMAL);
 		
 		//front cam capture
+		/*
 		mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.frontCam);
 		mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
 		mOpenCvCameraView.setCvCameraViewListener(this);
-		mOpenCvCameraView.setMaxFrameSize(600, 300);
+		mOpenCvCameraView.setMaxFrameSize(640, 480);
+		*/
+		
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
 	
 	public void onLeftBtn(View v) {
@@ -96,8 +101,15 @@ public class GameActivity extends Activity implements SensorEventListener, CvCam
 		float[] orientationValues = new float[3];
 		for (int i = 0; i < 3; ++i) orientationValues[i] = event.values[i];
 		
-		int axisIdx = 1; 
-	        
+		int axisIdx = 0; 
+		if (orientationValues[axisIdx] < -tiltThreshold) {
+			game.player.moveToLeftSide();
+		} else if (orientationValues[axisIdx] > tiltThreshold) {
+			game.player.moveToRightSide();
+		} else {
+			game.player.moveToCenter();
+		}
+		/*
         if (tiltFlag) {
         	if (orientationValues[axisIdx] < -tiltThreshold) {
         		game.player.moveLeft();
@@ -111,6 +123,7 @@ public class GameActivity extends Activity implements SensorEventListener, CvCam
         } else {
         	if (orientationValues[axisIdx] >= -flagThreshold && orientationValues[axisIdx] <= flagThreshold) tiltFlag = true; 
         }
+        */
         /*
         Log.d("DEBUG", "v0: " + orientationValues[0]);
         Log.d("DEBUG", "v1: " + orientationValues[1]);
@@ -128,9 +141,13 @@ public class GameActivity extends Activity implements SensorEventListener, CvCam
 	@Override
 	 public void onPause()
 	 {
+		Log.d("DEBUG:", "PAUSE PAUSE PAUSE !!!!");
 	     super.onPause();
 	     if (mOpenCvCameraView != null)
 	         mOpenCvCameraView.disableView();
+	     if (game != null && game.world != null) {
+	    	 game.clear();
+	     }
 	 }
 
 	 public void onDestroy() {
@@ -209,6 +226,8 @@ public class GameActivity extends Activity implements SensorEventListener, CvCam
 	    }
 	};
 
+	
+	
 	@Override
 	public void onResume()
 	{
