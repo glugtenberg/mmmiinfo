@@ -6,7 +6,9 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.opengl.GLSurfaceView;
+import android.util.Log;
 
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
@@ -31,6 +33,10 @@ class Game implements GLSurfaceView.Renderer {
 	private FrameBuffer fb = null;
 	public World world = null;
 	private long time = System.currentTimeMillis();
+	private long startTime = System.currentTimeMillis();
+	private static final long MAX_TIME = 20 * 1000;  
+	private Activity ownerActivity = null; 
+	private boolean active = false; 
 
 	public CubeSpawner spawner = null;
 	public Player player = null; 
@@ -40,8 +46,9 @@ class Game implements GLSurfaceView.Renderer {
 	public Camera cam = null;
 	private Light sun = null;
 
-	public Game() {
-		
+	
+	public Game(Activity ownerActivity) {
+		this.ownerActivity = ownerActivity; 
 	}
 
 	public void onSurfaceChanged(GL10 gl, int w, int h) {
@@ -113,6 +120,7 @@ class Game implements GLSurfaceView.Renderer {
 		sun.setPosition(sv);
 		
 		MemoryHelper.compact();
+		active = true; 
 	}
 	
 	private void createBackground() {
@@ -125,6 +133,8 @@ class Game implements GLSurfaceView.Renderer {
 	}
 
 	public void onDrawFrame(GL10 gl) {
+		if (!active) return; 
+		
 		long elapsedTime = System.currentTimeMillis() - time;
 		time = System.currentTimeMillis();
 		
@@ -136,6 +146,20 @@ class Game implements GLSurfaceView.Renderer {
 		world.draw(fb);
 		fb.display();
 
+		if (time - startTime > MAX_TIME) {
+			finishGame();	
+		}
+	}
+	
+	private void finishGame() {
+		float score = player.score; 
+		Log.d("DEBUG", "score: " + score); 
+		active = false; 
+		
+		//ownerActivity.finish();
+		
+		Intent intent = new Intent(ownerActivity, EndGameActivity.class);
+		ownerActivity.startActivityForResult(intent, 0);
 	}
 	
 	private void addBackgroundBox(SimpleVector pos) {

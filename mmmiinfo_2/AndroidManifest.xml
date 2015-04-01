@@ -45,6 +45,8 @@
             android:screenOrientation="reverseLandscape"
         	android:configChanges="keyboardHidden|orientation">
         </activity>
+        <activity android:name=".EndGameActivity" android:label="EndGameScreen"></activity>
+        
     </application>
 
 </manifest>

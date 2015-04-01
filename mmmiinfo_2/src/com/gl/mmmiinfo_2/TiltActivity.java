@@ -38,7 +38,7 @@ public class TiltActivity extends GameActivity implements SensorEventListener {
 		float[] orientationValues = new float[3];
 		for (int i = 0; i < 3; ++i) orientationValues[i] = event.values[i];
 		
-		int axisIdx = 1; 
+		int axisIdx = 0; 
 		if (orientationValues[axisIdx] < -tiltThreshold) {
 			game.player.moveToLeftSide();
 		} else if (orientationValues[axisIdx] > tiltThreshold) {

@@ -15,15 +15,14 @@ public class ButtonActivity extends GameActivity {
 		View gui = inflater.inflate(R.layout.game, null);
 		
 		addContentView(gui, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-		
 	}
 	
 	public void onLeftBtn(View v) {
-		game.player.moveLeft();
+		if (game != null && game.player != null) game.player.moveLeft();
     } 
 	
 	public void onRightBtn(View v) {
-		game.player.moveRight();
+		if (game != null && game.player != null) game.player.moveRight();
     }
 
 }

@@ -1,16 +1,16 @@
 package com.gl.mmmiinfo_2;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 
 public class GameActivity extends Activity {
-	
+
 	protected Game game = null;
 
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -18,7 +18,7 @@ public class GameActivity extends Activity {
 
 		mGLView.setEGLContextClientVersion(2);
 
-		game = new Game();
+		game = new Game(this);
 		mGLView.setRenderer(game);
 		
 		setContentView(mGLView);
@@ -26,17 +26,18 @@ public class GameActivity extends Activity {
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
 	
-	public void onLeftBtn(View v) {
-		game.player.moveLeft();
-    } 
-	
-	public void onRightBtn(View v) {
-		game.player.moveRight();
-    }
-	
 	public void onDestroy() {
 	    super.onDestroy();
 	    game.clear();
 	    game = null;
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if (requestCode == 0) finish();
+	}
+	
+	
 }
