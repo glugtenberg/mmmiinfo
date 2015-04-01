@@ -47,6 +47,8 @@
         	android:configChanges="keyboardHidden|orientation">
         </activity>
         <activity android:name="PlayerData" android:label="displays the player data"></activity>
+        <activity android:name=".EndGameActivity" android:label="EndGameScreen"></activity>
+        
     </application>
 
 </manifest>

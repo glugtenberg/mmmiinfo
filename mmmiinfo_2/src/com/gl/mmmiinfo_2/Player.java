@@ -17,6 +17,8 @@ public class Player {
 	private static final float POS_EPSILON = 0.01f; 
 	private static final int LOOKAT_Z_DISTANCE = 150;
 	
+	public float score = 0; 
+	
 	public Player(ArrayList<SimpleVector> slots) {
 		this.slots = new ArrayList<SimpleVector>();
 		this.slots.addAll(slots);
@@ -46,6 +48,7 @@ public class Player {
 			if (cube.active && testCollision(cube)) {
 				Log.d("DEBUG", "HIT HIT HIT");
 				cube.setActive(false); 
+				score--; 
 			}
 		}
 	}
