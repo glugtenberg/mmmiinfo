@@ -1,15 +1,11 @@
 package com.gl.mmmiinfo_2;
 
-<<<<<<< HEAD
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-=======
-import java.io.FileOutputStream;
->>>>>>> 0276ebd5f01228a546c4919fa60ba9bfd3217ad7
+
 import java.util.ArrayList;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -19,11 +15,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.opengl.GLSurfaceView;
-<<<<<<< HEAD
+
 import android.os.Environment;
-=======
 import android.view.View;
->>>>>>> 0276ebd5f01228a546c4919fa60ba9bfd3217ad7
 import android.util.Log;
 
 import com.threed.jpct.Camera;
