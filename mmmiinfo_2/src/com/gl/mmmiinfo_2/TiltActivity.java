@@ -23,6 +23,7 @@ public class TiltActivity extends GameActivity implements SensorEventListener {
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		sensorManager.registerListener(this,  sensorManager.getDefaultSensor(Sensor.TYPE_GAME_ROTATION_VECTOR), SensorManager.SENSOR_DELAY_NORMAL);
 		
+		inputType = "INPUT_TILT: "; 
 	}
 	
 	@Override
@@ -38,7 +39,7 @@ public class TiltActivity extends GameActivity implements SensorEventListener {
 		float[] orientationValues = new float[3];
 		for (int i = 0; i < 3; ++i) orientationValues[i] = event.values[i];
 		
-		int axisIdx = 0; 
+		int axisIdx = 1; 
 		if (orientationValues[axisIdx] < -tiltThreshold) {
 			game.player.moveToLeftSide();
 		} else if (orientationValues[axisIdx] > tiltThreshold) {

@@ -15,6 +15,8 @@ public class ButtonActivity extends GameActivity {
 		View gui = inflater.inflate(R.layout.game, null);
 		
 		addContentView(gui, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		
+		inputType = "INPUT_BUTTON: "; 
 	}
 	
 	public void onLeftBtn(View v) {

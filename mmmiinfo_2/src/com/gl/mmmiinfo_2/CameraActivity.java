@@ -60,6 +60,8 @@ public class CameraActivity extends GameActivity implements CvCameraViewListener
 		mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
 		mOpenCvCameraView.setCvCameraViewListener(this);
 		mOpenCvCameraView.setMaxFrameSize(600, 400);
+		
+		inputType = "INPUT_CAMERA: "; 
 	}
 	
 	@Override

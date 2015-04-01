@@ -10,6 +10,7 @@ import android.view.WindowManager;
 public class GameActivity extends Activity {
 
 	protected Game game = null;
+	protected String inputType; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,8 @@ public class GameActivity extends Activity {
 		setContentView(mGLView);
 		
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		
+		inputType = "INPUT_TILT";
 	}
 	
 	public void onDestroy() {
@@ -37,6 +40,10 @@ public class GameActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		if (requestCode == 0) finish();
+	}
+	
+	public String getInputType() {
+		return inputType; 
 	}
 	
 	

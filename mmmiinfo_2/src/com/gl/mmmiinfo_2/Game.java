@@ -1,13 +1,21 @@
 package com.gl.mmmiinfo_2;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.opengl.GLSurfaceView;
+import android.os.Environment;
 import android.util.Log;
 
 import com.threed.jpct.Camera;
@@ -35,7 +43,7 @@ class Game implements GLSurfaceView.Renderer {
 	private long time = System.currentTimeMillis();
 	private long startTime = System.currentTimeMillis();
 	private static final long MAX_TIME = 20 * 1000;  
-	private Activity ownerActivity = null; 
+	private GameActivity ownerActivity = null; 
 	private boolean active = false; 
 
 	public CubeSpawner spawner = null;
@@ -47,7 +55,7 @@ class Game implements GLSurfaceView.Renderer {
 	private Light sun = null;
 
 	
-	public Game(Activity ownerActivity) {
+	public Game(GameActivity ownerActivity) {
 		this.ownerActivity = ownerActivity; 
 	}
 
@@ -105,6 +113,7 @@ class Game implements GLSurfaceView.Renderer {
 		transitionTable[2][2] = 0.0f;
 				
 		spawner = new CubeSpawner(slots, 100, transitionTable, 3, world); 
+		spawner.timeLeft = MAX_TIME - 5000; 
 		player = new Player(slots);
 		
 		createBackground();
@@ -147,14 +156,32 @@ class Game implements GLSurfaceView.Renderer {
 		fb.display();
 
 		if (time - startTime > MAX_TIME) {
-			finishGame();	
+			try {
+				finishGame();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
 		}
 	}
 	
-	private void finishGame() {
+	private void finishGame() throws IOException {
 		float score = player.score; 
-		Log.d("DEBUG", "score: " + score); 
 		active = false; 
+		
+		String data = ownerActivity.getInputType() + score + "\n"; 
+		
+		File sdCard = Environment.getExternalStorageDirectory();
+		File dir = new File (sdCard.getAbsolutePath() + "/");
+
+		File file = new File(dir, "score.txt");
+		
+		try {
+			FileWriter fw = new FileWriter(file,true); 
+			fw.write(data);
+			fw.close();  
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		//ownerActivity.finish();
 		
