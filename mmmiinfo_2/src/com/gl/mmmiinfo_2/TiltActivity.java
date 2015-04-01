@@ -47,27 +47,6 @@ public class TiltActivity extends GameActivity implements SensorEventListener {
 		} else {
 			game.player.moveToCenter();
 		}
-		/*
-        if (tiltFlag) {
-        	if (orientationValues[axisIdx] < -tiltThreshold) {
-        		game.player.moveLeft();
-        		tiltFlag = false; 
-        	}
-        	
-        	if (orientationValues[axisIdx] > tiltThreshold) {
-        		game.player.moveRight();
-        		tiltFlag = false; 
-        	}
-        } else {
-        	if (orientationValues[axisIdx] >= -flagThreshold && orientationValues[axisIdx] <= flagThreshold) tiltFlag = true; 
-        }
-        */
-        /*
-        Log.d("DEBUG", "v0: " + orientationValues[0]);
-        Log.d("DEBUG", "v1: " + orientationValues[1]);
-		Log.d("DEBUG", "v2: " + orientationValues[2]);
-		Log.d("DEBUG", "---------");	
-		*/
 	}
 	
 	@Override

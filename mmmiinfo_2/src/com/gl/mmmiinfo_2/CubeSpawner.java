@@ -23,7 +23,8 @@ public class CubeSpawner {
 	public float[][] transitionTable; 
 	public int prevSlotIdx;
 
-	public float timeLeft = 0; 
+	public float timeLeft = 0;
+	public float maxTimeLeft;
 	
 	public CubeSpawner(ArrayList<SimpleVector> slots, float depth, float[][] transitionTable, int tableDim, World world) {
 		Log.d("DEBUG", "CubeSpawner");
@@ -46,6 +47,7 @@ public class CubeSpawner {
 		for (int i = 0; i < cubes.size(); ++i) {
 			cubes.get(i).setActive(false); 
 		}
+		timeLeft = maxTimeLeft; 
 	}
 	
 	private int getFreeSlotIdx() {
@@ -65,27 +67,28 @@ public class CubeSpawner {
 	}
 	
 	public void update(Game game, float dt) {
-		if (timeLeft < 0) return;
-		
-		if  (t <= 0) { 
-			int freeSlotIdx = getFreeSlotIdx();
-			for (int i = 0; i < spawnSlots.size(); ++i) {
-				if (i != freeSlotIdx &&  (i == prevSlotIdx || Math.random() < 0.75)) {
-					spawnCube(spawnSlots.get(i));
-				} 
+		if (timeLeft > 0) {
+			if  (t <= 0) { 
+				int freeSlotIdx = getFreeSlotIdx();
+				for (int i = 0; i < spawnSlots.size(); ++i) {
+					if (i != freeSlotIdx &&  (i == prevSlotIdx || Math.random() < 0.75)) {
+						spawnCube(spawnSlots.get(i));
+					} 
+				}
+				
+				prevSlotIdx = freeSlotIdx;
+				t = interval; 
+			} else {
+				t -= dt; 
 			}
 			
-			prevSlotIdx = freeSlotIdx;
-			t = interval; 
-		} else {
-			t -= dt; 
+			timeLeft -= dt * 1000;
 		}
 		
 		for (ShootingCube cube : cubes) {
 			cube.update(dt);
 		}
-		
-		timeLeft -= dt; 
+		 
 	}
 	
 	private void buildPool(int num, World world) {

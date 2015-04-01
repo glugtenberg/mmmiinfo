@@ -44,9 +44,12 @@ class Game implements GLSurfaceView.Renderer {
 	public World world = null;
 	private long time = System.currentTimeMillis();
 	private long startTime = System.currentTimeMillis();
-	private static final long MAX_TIME = 20 * 1000;  
+	
+	private static final long MAX_TIME = 30 * 1000;  
+	private static final int SPAWNER_DELAY = 3 * 1000;
+	
 	private GameActivity ownerActivity = null; 
-	private boolean active = false; 
+	public boolean active = false; 
 
 	public CubeSpawner spawner = null;
 	public Player player = null; 
@@ -116,7 +119,8 @@ class Game implements GLSurfaceView.Renderer {
 		transitionTable[2][2] = 0.0f;
 				
 		spawner = new CubeSpawner(slots, 100, transitionTable, 3, world); 
-		spawner.timeLeft = MAX_TIME - 5000; 
+		spawner.maxTimeLeft = MAX_TIME - SPAWNER_DELAY; 
+		spawner.reset();
 		player = new Player(slots);
 		
 		createBackground();

@@ -23,12 +23,13 @@ import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 
 
 public class CameraActivity extends GameActivity implements CvCameraViewListener2 {
 	
 	//constants
-	private static final double REGION_THRESHOLD = 0.6; //percentage of region occupied by ON pixels
+	private static final double REGION_THRESHOLD = 0.3; //percentage of region occupied by ON pixels
 	private static final int REGION_SCREEN_RATIO_WIDTH = 4; //1/x of width of screen filled by regions
 	private static final int REGION_SCREEN_RATIO_HEIGHT = 2; //1/x of height of screen filled by regions
 	
@@ -70,7 +71,7 @@ public class CameraActivity extends GameActivity implements CvCameraViewListener
 		HUE_THRESHOLD = getIntent().getExtras().getInt("HUE_THRESHOLD");
 		SATURATION_THRESHOLD = getIntent().getExtras().getInt("SATURATION_THRESHOLD");
 		VALUE_THRESHOLD = getIntent().getExtras().getInt("VALUE_THRESHOLD");
-
+		
 	}
 	
 	@Override
@@ -93,10 +94,11 @@ public class CameraActivity extends GameActivity implements CvCameraViewListener
 	 
 	 public void onCameraViewStarted(int width, int height) {
 		 
-		 background = new Mat(width, height, CvType.CV_8U);
-		 bgChannels = new ArrayList<Mat>();
+		background = new Mat(width, height, CvType.CV_8U);
+		bgChannels = new ArrayList<Mat>();
 	    diff = new Mat(width, height, CvType.CV_8U);
 	    curr = new Mat(width, height, CvType.CV_8U);
+	    game.active = false;
 	 }
 	
 	 public void onCameraViewStopped() {
@@ -205,6 +207,12 @@ public class CameraActivity extends GameActivity implements CvCameraViewListener
 	{
 	    super.onResume();
 	    OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_6, this, mLoaderCallback);
+	}
+	
+	public void onScreenClick(View v){
+		game.active = true;
+		Button b = (Button)v;
+		b.setVisibility(View.GONE);
 	}
 
 }
