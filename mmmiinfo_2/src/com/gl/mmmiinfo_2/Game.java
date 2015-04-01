@@ -1,12 +1,15 @@
 package com.gl.mmmiinfo_2;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.app.Activity;
+import android.content.Context;
 import android.opengl.GLSurfaceView;
+import android.view.View;
 
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
@@ -43,6 +46,7 @@ class Game implements GLSurfaceView.Renderer {
 	public Game() {
 		
 	}
+	
 
 	public void onSurfaceChanged(GL10 gl, int w, int h) {
 		if (fb != null) {

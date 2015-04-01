@@ -1,5 +1,8 @@
 package com.gl.mmmiinfo_2;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -38,5 +41,14 @@ public class GameActivity extends Activity {
 	    super.onDestroy();
 	    game.clear();
 	    game = null;
+	}
+	
+	public void endGame(View v) throws IOException{
+		//string STRINGVALUE = id - mode - score
+		String str = "kaas";
+
+		FileOutputStream fos = openFileOutput("name.txt", MODE_PRIVATE);
+		fos.write(str.getBytes());
+		fos.close();
 	}
 }

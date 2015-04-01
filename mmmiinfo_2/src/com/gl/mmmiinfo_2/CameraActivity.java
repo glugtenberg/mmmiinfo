@@ -31,9 +31,10 @@ public class CameraActivity extends GameActivity implements CvCameraViewListener
 	private static final double REGION_THRESHOLD = 0.6; //percentage of region occupied by ON pixels
 	private static final int REGION_SCREEN_RATIO_WIDTH = 4; //1/x of width of screen filled by regions
 	private static final int REGION_SCREEN_RATIO_HEIGHT = 2; //1/x of height of screen filled by regions
-	private static final int HUE_THRESHOLD = 41;//0;
-	private static final int SATURATION_THRESHOLD = 0;//53;
-	private static final int VALUE_THRESHOLD = 80;//129;
+	
+	private static int HUE_THRESHOLD = 41;//0;
+	private static int SATURATION_THRESHOLD = 0;//53;
+	private static int VALUE_THRESHOLD = 80;//129;
 
 	private CameraBridgeViewBase mOpenCvCameraView;
 	
@@ -59,7 +60,11 @@ public class CameraActivity extends GameActivity implements CvCameraViewListener
 		mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.frontCam);
 		mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
 		mOpenCvCameraView.setCvCameraViewListener(this);
-		mOpenCvCameraView.setMaxFrameSize(600, 400);
+		mOpenCvCameraView.setMaxFrameSize(800, 500);
+		
+		HUE_THRESHOLD = getIntent().getExtras().getInt("HUE_THRESHOLD");
+		SATURATION_THRESHOLD = getIntent().getExtras().getInt("SATURATION_THRESHOLD");
+		VALUE_THRESHOLD = getIntent().getExtras().getInt("VALUE_THRESHOLD");
 	}
 	
 	@Override

@@ -30,7 +30,13 @@ public class MainActivity extends Activity {
 		Intent intent = new Intent(v.getContext(), CameraActivity.class);
 		
 		EditText h = (EditText)findViewById(R.id.hueText);
-		intent.putExtra("HUE_THRESHOLD", h.getText());
+		EditText s = (EditText)findViewById(R.id.saturationText);
+		EditText vv = (EditText)findViewById(R.id.valueText);
+		
+		intent.putExtra("HUE_THRESHOLD", Integer.parseInt(h.getText().toString()));
+		intent.putExtra("SATURATION_THRESHOLD", Integer.parseInt(s.getText().toString()));
+		intent.putExtra("VALUE_THRESHOLD", Integer.parseInt(vv.getText().toString()));
+		
 		startActivity(intent);
     }
 }
