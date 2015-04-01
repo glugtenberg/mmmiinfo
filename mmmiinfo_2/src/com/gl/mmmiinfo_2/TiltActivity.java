@@ -12,10 +12,8 @@ import android.os.Bundle;
 public class TiltActivity extends GameActivity implements SensorEventListener {
 	
 	private SensorManager sensorManager;
-	private boolean tiltFlag = true; 
-	
-	private static final float flagThreshold = 0.05f;
-    private static final float tiltThreshold = 0.1f; 
+
+    private static final float tiltThreshold = 0.09f; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +38,7 @@ public class TiltActivity extends GameActivity implements SensorEventListener {
 		float[] orientationValues = new float[3];
 		for (int i = 0; i < 3; ++i) orientationValues[i] = event.values[i];
 		
-		int axisIdx = 0; 
+		int axisIdx = 1; 
 		if (orientationValues[axisIdx] < -tiltThreshold) {
 			game.player.moveToLeftSide();
 		} else if (orientationValues[axisIdx] > tiltThreshold) {

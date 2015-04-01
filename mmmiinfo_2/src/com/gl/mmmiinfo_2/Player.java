@@ -15,6 +15,7 @@ public class Player {
 	private SimpleVector currentPos = new SimpleVector(); 
 	private float maxChange = 1.5f; 
 	private static final float POS_EPSILON = 0.01f; 
+	private static final int LOOKAT_Z_DISTANCE = 150;
 	
 	public Player(ArrayList<SimpleVector> slots) {
 		this.slots = new ArrayList<SimpleVector>();
@@ -37,8 +38,9 @@ public class Player {
 		} else {
 			currentPos.add(dPos);
 		}
-		
+		SimpleVector distancePt = new SimpleVector(0, 0, LOOKAT_Z_DISTANCE);
 		game.world.getCamera().setPosition(currentPos);
+		game.world.getCamera().lookAt(distancePt.calcSub(currentPos));
 		
 		for (ShootingCube cube : game.spawner.cubes) {
 			if (cube.active && testCollision(cube)) {

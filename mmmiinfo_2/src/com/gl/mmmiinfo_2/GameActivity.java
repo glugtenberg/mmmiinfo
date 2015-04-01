@@ -34,4 +34,9 @@ public class GameActivity extends Activity {
 		game.player.moveRight();
     }
 	
+	public void onDestroy() {
+	    super.onDestroy();
+	    game.clear();
+	    game = null;
+	}
 }

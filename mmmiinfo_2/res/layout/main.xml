@@ -41,4 +41,37 @@
             android:onClick="onCamButton"
             android:text="Tilt" />
 
+        <EditText
+            android:id="@+id/hueText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="34dp"
+            android:ems="10"
+            android:hint="hue" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/saturationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/hueText"
+            android:layout_below="@+id/hueText"
+            android:layout_marginTop="21dp"
+            android:ems="10"
+            android:hint="saturation" />
+
+        <EditText
+            android:id="@+id/valueText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/saturationText"
+            android:layout_alignTop="@+id/cam_button"
+            android:ems="10"
+            android:hint="value" />
+
 </RelativeLayout>

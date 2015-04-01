@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 public class MainActivity extends Activity {
 	
@@ -27,6 +28,9 @@ public class MainActivity extends Activity {
 	
 	public void onCamButton(View v) {
 		Intent intent = new Intent(v.getContext(), CameraActivity.class);
+		
+		EditText h = (EditText)findViewById(R.id.hueText);
+		intent.putExtra("HUE_THRESHOLD", h.getText());
 		startActivity(intent);
     }
 }
