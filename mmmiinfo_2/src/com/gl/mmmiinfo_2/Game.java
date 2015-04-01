@@ -23,15 +23,15 @@ import android.util.Log;
 import com.threed.jpct.Camera;
 import com.threed.jpct.FrameBuffer;
 import com.threed.jpct.Light;
-import com.threed.jpct.Logger;
+
 import com.threed.jpct.Object3D;
-import com.threed.jpct.Primitives;
+
 import com.threed.jpct.RGBColor;
 import com.threed.jpct.SimpleVector;
 import com.threed.jpct.Texture;
 import com.threed.jpct.TextureManager;
 import com.threed.jpct.World;
-import com.threed.jpct.util.BitmapHelper;
+
 import com.threed.jpct.util.MemoryHelper;
 
 

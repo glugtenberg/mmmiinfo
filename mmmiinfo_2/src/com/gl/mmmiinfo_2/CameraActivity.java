@@ -60,17 +60,17 @@ public class CameraActivity extends GameActivity implements CvCameraViewListener
 		mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.frontCam);
 		mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
 		mOpenCvCameraView.setCvCameraViewListener(this);
-<<<<<<< HEAD
+
 		mOpenCvCameraView.setMaxFrameSize(600, 400);
 		
 		inputType = "INPUT_CAMERA: "; 
-=======
+
 		mOpenCvCameraView.setMaxFrameSize(800, 500);
 		
 		HUE_THRESHOLD = getIntent().getExtras().getInt("HUE_THRESHOLD");
 		SATURATION_THRESHOLD = getIntent().getExtras().getInt("SATURATION_THRESHOLD");
 		VALUE_THRESHOLD = getIntent().getExtras().getInt("VALUE_THRESHOLD");
->>>>>>> 0276ebd5f01228a546c4919fa60ba9bfd3217ad7
+
 	}
 	
 	@Override
